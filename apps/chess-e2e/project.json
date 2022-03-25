@@ -1,0 +1,28 @@
+{
+  "root": "apps/chess-e2e",
+  "sourceRoot": "apps/chess-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/chess-e2e/cypress.json",
+        "devServerTarget": "chess:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "chess:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/chess-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["chess"]
+}
