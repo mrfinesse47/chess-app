@@ -1,0 +1,14 @@
+name: Chess Project CI
+on:
+  pull_request:
+    branches: main
+jobs:
+  build:
+    env:
+      CI: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
