@@ -5,14 +5,18 @@
   "scripts": {
     "start": "nx run-many --target=serve --projects=chess,chess-api --parallel=true",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "db:reset": "node apps/chess-api/src/bin/resetdb.js"
   },
   "private": true,
   "dependencies": {
     "@nrwl/next": "13.9.4",
+    "chalk": "^5.0.1",
     "core-js": "^3.6.5",
+    "dotenv": "^16.0.0",
     "express": "4.17.2",
     "next": "12.1.0",
+    "pg-native": "^3.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-is": "17.0.2",

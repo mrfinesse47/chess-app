@@ -1,8 +1,10 @@
-console.log(process.env.DB_HOST);
+require('dotenv').config();
+// require('../db/schema');
+console.log('port is:', process.env.PORT);
 
 // other dependencies
 const fs = require('fs');
-const chalk = require('chalk');
+//const chalk = require('chalk');
 const Client = require('pg-native');
 
 // PG connection setup
@@ -13,23 +15,23 @@ const client = new Client();
 
 // Loads the schema files from db/schema
 const runSchemaFiles = function () {
-  console.log(chalk.cyan(`-> Loading Schema Files ...`));
-  const schemaFilenames = fs.readdirSync('./db/schema');
+  console.log(`-> Loading Schema Files ...`);
+  const schemaFilenames = fs.readdirSync('apps/chess-api/src/db/schema');
 
   for (const fn of schemaFilenames) {
-    const sql = fs.readFileSync(`./db/schema/${fn}`, 'utf8');
-    console.log(`\t-> Running ${chalk.green(fn)}`);
+    const sql = fs.readFileSync(`apps/chess-api/src/db/schema/${fn}`, 'utf8');
+    console.log(`\t-> Running ${fn}`);
     client.querySync(sql);
   }
 };
 
 const runSeedFiles = function () {
-  console.log(chalk.cyan(`-> Loading Seeds ...`));
-  const schemaFilenames = fs.readdirSync('./db/seeds');
+  console.log(`-> Loading Seeds ...`);
+  const schemaFilenames = fs.readdirSync('apps/chess-api/src/db/seeds');
 
   for (const fn of schemaFilenames) {
-    const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
-    console.log(`\t-> Running ${chalk.green(fn)}`);
+    const sql = fs.readFileSync(`apps/chess-api/src/db/seeds/${fn}`, 'utf8');
+    console.log(`\t-> Running ${fn}`);
     client.querySync(sql);
   }
 };
@@ -41,6 +43,6 @@ try {
   runSeedFiles();
   client.end();
 } catch (err) {
-  console.error(chalk.red(`Failed due to error: ${err}`));
+  console.error(`Failed due to error: ${err}`);
   client.end();
 }
