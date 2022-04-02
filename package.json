@@ -11,6 +11,8 @@
   "private": true,
   "dependencies": {
     "@nrwl/next": "13.9.4",
+    "@types/cookie-session": "^2.0.44",
+    "@types/express-session": "^1.17.4",
     "chalk": "^5.0.1",
     "cookie-session": "^2.0.0",
     "core-js": "^3.6.5",

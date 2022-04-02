@@ -1,6 +1,6 @@
 module.exports = (db) => {
   // USER QUERIES
-  const getUserByEmail = function (email: String) {
+  const getUserByEmail = function (email: String): String | null {
     return db
       .query(`SELECT * FROM users WHERE email = $1;`, [email])
       .then((result) => {

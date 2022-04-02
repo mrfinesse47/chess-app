@@ -4,6 +4,9 @@
  */
 
 import * as express from 'express';
+import { User } from '@chess/utils';
+
+// const user: User = { name: 'kwvin', phone: 334 };
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));

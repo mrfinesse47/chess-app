@@ -3,6 +3,7 @@
   "projects": {
     "chess": "apps/chess",
     "chess-api": "apps/chess-api",
-    "chess-e2e": "apps/chess-e2e"
+    "chess-e2e": "apps/chess-e2e",
+    "utils": "libs/utils"
   }
 }
