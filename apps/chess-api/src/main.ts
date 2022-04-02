@@ -35,8 +35,20 @@ app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to chess-api!' });
 });
 
+//middleware
+
+const { authCheck } = require('./middleware/authCheck');
+
+app.use((req, res, next) => {
+  authCheck(req, res, next, dbUserQueries);
+});
+
+//user routes
+
 const usersRoutes = require('./routes/users');
 app.use('/api/users', usersRoutes(dbUserQueries));
+
+//initilize server on port
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

@@ -18,7 +18,6 @@ module.exports = (db) => {
       }
       if (req.body.password !== user.password) {
         //check the user password vs the form password
-
         return res.json({
           auth: false,
           message: 'User information is incorrect',
