@@ -6,6 +6,7 @@
 import * as express from 'express';
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -16,6 +17,17 @@ db.connect();
 //go get db queries to send along to routes
 
 const dbUserQueries = require('./db/queries/user')(db);
+
+//configure cookies
+
+const cookieSession = require('cookie-session');
+
+app.use(
+  cookieSession({
+    name: 'user',
+    keys: ['key1', 'key2'],
+  })
+);
 
 //test route
 

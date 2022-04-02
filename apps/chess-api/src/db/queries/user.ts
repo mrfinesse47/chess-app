@@ -1,6 +1,6 @@
 module.exports = (db) => {
   // USER QUERIES
-  const getUserByEmail = function (email) {
+  const getUserByEmail = function (email: String) {
     return db
       .query(`SELECT * FROM users WHERE email = $1;`, [email])
       .then((result) => {
@@ -97,5 +97,5 @@ module.exports = (db) => {
         }
       });
   };
-  return { getUserByEmail, addUser, updateUserInfo };
+  return { getUserByEmail, addUser, updateUserInfo, getUserById };
 };
