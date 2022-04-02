@@ -4,8 +4,11 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --projects=chess,chess-api --parallel=true",
-    "build": "nx run-many --all --target=build --parallel=true",
-    "test": "nx run-many --all --target=test --parallel=true",
+    "start:chess": "nx serve chess",
+    "start:api": "nx serve chess-api",
+    "build": "nx affected --target=build",
+    "test": "nx affected --target=test",
+    "affected": "nx affected:graph",
     "db:reset": "node apps/chess-api/src/bin/resetdb.js"
   },
   "private": true,
