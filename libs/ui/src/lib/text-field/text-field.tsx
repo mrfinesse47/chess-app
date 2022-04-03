@@ -1,27 +1,36 @@
-import styled from 'styled-components';
-import React from 'react';
+import styled from "styled-components";
+import React from "react";
 /* eslint-disable-next-line */
-export interface TextFieldProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>  {
+export interface TextFieldProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   id: string;
   label: string;
 }
 
-const StyledTextField = styled.div`
-`;
+const StyledTextField = styled.div``;
 const Input = styled.input``;
 const Label = styled.label``;
 
-export const TextField = React.forwardRef<HTMLInputElement,TextFieldProps>(({
-  label,
-  id,
-  ...props
-}, ref) =>{
-  return (
-    <StyledTextField>
-      <Label data-testid={`label-${id}`} htmlFor={id}>{label}</Label>
-      <Input type="text" data-testid={`input-${id}`} id={id} {...props} ref={ref}/>
-    </StyledTextField>
-  );
-})
+export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ label, id, ...props }, ref) => {
+    return (
+      <StyledTextField>
+        <Label data-testid={`label-${id}`} htmlFor={id}>
+          {label}
+        </Label>
+        <Input
+          type="text"
+          data-testid={`input-${id}`}
+          id={id}
+          {...props}
+          ref={ref}
+        />
+      </StyledTextField>
+    );
+  }
+);
 
 export default TextField;
