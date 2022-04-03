@@ -9,7 +9,7 @@ export interface ButtonProps
   variant?: "primary" | "secondary";
 }
 
-const StyledButton = styled.button<Pick<ButtonProps, "variant">>`
+export const StyledButton = styled.button<Pick<ButtonProps, "variant">>`
   padding: 1em;
   color: white;
   ${(props) => {
