@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Ui from './ui';
+import TextField from './text-field';
 
-describe('Ui', () => {
+describe('TextField', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Ui />);
+    const { baseElement } = render(<TextField />);
     expect(baseElement).toBeTruthy();
   });
 });
