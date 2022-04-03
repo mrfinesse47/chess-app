@@ -29,61 +29,48 @@ module.exports = (db) => {
   };
 
   const addUser = function (user) {
-    const values = [
-      user.first_name,
-      user.last_name,
-      user.address,
-      user.neighborhood,
-      user.borrower,
-      user.lender,
+    const queryParams = [
+      user.userName,
+      user.firstName,
+      user.lastName,
       user.email,
-      user.cash_balance_cents,
-      user.phone,
+      user.rating,
       user.password,
     ];
 
     return db
       .query(
-        `INSERT INTO users (first_name, last_name, address, neighborhood, 
-            borrower, lender, email, cash_balance_cents, phone, password)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        `INSERT INTO users (user_name, first_name, last_name, email,rating, password)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;`,
-        values
+        queryParams
       )
       .then((result) => {
-        if (result) {
-          return result.rows[0];
-        } else {
-          return null;
-        }
+        return result.rows[0];
       });
   };
 
-  const updateUserInfo = function (id, object) {
+  const updateUserInfo = function (id, user) {
     const queryParams = [
       id,
-      object.first_name,
-      object.last_name,
-      object.address,
-      object.neighborhood,
-      object.email,
-      object.phone,
-      object.lender,
-      object.borrower,
+      user.userName,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.rating,
+      user.password,
     ];
 
     return db
       .query(
         `
           UPDATE users
-          SET first_name = $2 ,
-              last_name = $3 ,
-              address = $4,
-              neighborhood = $5,
-              email = $6,
-              phone = $7,
-              lender= $8,
-              borrower=$9
+          SET user_name = $2 ,
+              first_name = $3 ,
+              first_name  = $4,
+              email = $5,
+              rating = $6,
+              password = $7
           
           WHERE id = $1
     RETURNING *;`,

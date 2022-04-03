@@ -9,6 +9,7 @@ module.exports = (db) => {
   //-----------------------------------------------------------------
 
   router.post("/login", async (req, res) => {
+    console.log(req.body);
     try {
       const user = await db.getUserByEmail(req.body.email);
 
@@ -61,21 +62,27 @@ module.exports = (db) => {
 
   router.post("/signup", (req, res) => {
     const user = {
-      first_name: req.body.firstName,
-      last_name: req.body.lastName,
-      address: "placeholder", //will remove placeholders shortly when reseeded db
-      neighborhood: "placeholder",
-      borrower: false, //not sent by axios
-      lender: false, //not sent by axios
+      userName: req.body.userName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
-      cash_balance_cents: 0, //not sent along  by axios
-      phone: 1,
+      rating: 1600,
       password: req.body.password,
     };
 
+    console.log(user);
+
     //makes sure the sign up form is complete
 
-    if (!(user.first_name && user.last_name && user.email && user.password)) {
+    if (
+      !(
+        user.userName &&
+        user.firstName &&
+        user.lastName &&
+        user.email &&
+        user.password
+      )
+    ) {
       return res.json({
         auth: false,
         message: "Please fill in all required fields",
@@ -99,13 +106,6 @@ module.exports = (db) => {
 
     db.addUser(user)
       .then((result) => {
-        if (!result) {
-          return res.json({
-            auth: false,
-            message: "Email already in use",
-          });
-        }
-
         req.session.user_id = result.id; //set the cookie according to the userid returned from the database
 
         res.json({
@@ -115,9 +115,18 @@ module.exports = (db) => {
         });
       })
       .catch((err) => {
-        res.status(500).json({
+        console.log(err);
+        if (err.code === "23505") {
+          return res.status(500).json({
+            auth: false,
+            message: "username or email already in use",
+            err,
+          });
+        }
+        return res.status(500).json({
           auth: false,
           message: "internal server error",
+          err,
         });
       });
   });
