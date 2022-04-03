@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { User } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
+import { Leaderboard } from "@chess/features";
 const StyledPage = styled.div`
   display: flex;
   justify-content: center;
@@ -8,6 +9,7 @@ const StyledPage = styled.div`
   width: 100vw;
   height: 100vh;
   font-size: 1.5rem;
+  background: #cecece;
 `;
 
 const Navbar = styled.nav``;
@@ -29,12 +31,7 @@ const CTAButtonsGroup = styled.div`
   }
 `;
 const StatsSection = styled.section``;
-const Leaderboard = styled.div`
-  background: yellow;
-  padding: 1rem;
-`;
-const List = styled.ul``;
-const Item = styled.li``;
+
 export function Index() {
   const users: User[] = [
     {
@@ -61,13 +58,7 @@ export function Index() {
           </LinkButton>
         </CTAButtonsGroup>
         <StatsSection>
-          <Leaderboard>
-            <List>
-              {users.map((user) => {
-                return <Item key={user.name}>{user.name}</Item>;
-              })}
-            </List>
-          </Leaderboard>
+          <Leaderboard users={users} />
         </StatsSection>
       </Hero>
     </StyledPage>
