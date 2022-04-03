@@ -18,8 +18,8 @@ export const TextField = React.forwardRef<HTMLInputElement,TextFieldProps>(({
 }, ref) =>{
   return (
     <StyledTextField>
-      <Label htmlFor={id}>{label}</Label>
-      <Input type="text" id={id} {...props} ref={ref}/>
+      <Label data-testid={`label-${id}`} htmlFor={id}>{label}</Label>
+      <Input type="text" data-testid={`input-${id}`} id={id} {...props} ref={ref}/>
     </StyledTextField>
   );
 })
