@@ -10,6 +10,7 @@ import { User } from '@chess/utils';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // PG database client/connection setup
 const { Pool } = require('pg');
