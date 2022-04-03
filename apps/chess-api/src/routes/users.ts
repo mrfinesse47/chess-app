@@ -106,13 +106,6 @@ module.exports = (db) => {
 
     db.addUser(user)
       .then((result) => {
-        if (!result) {
-          return res.json({
-            auth: false,
-            message: "Email already in use",
-          });
-        }
-
         req.session.user_id = result.id; //set the cookie according to the userid returned from the database
 
         res.json({
@@ -122,7 +115,15 @@ module.exports = (db) => {
         });
       })
       .catch((err) => {
-        res.status(500).json({
+        console.log(err);
+        if (err.code === "23505") {
+          return res.status(500).json({
+            auth: false,
+            message: "username or email already in use",
+            err,
+          });
+        }
+        return res.status(500).json({
           auth: false,
           message: "internal server error",
           err,

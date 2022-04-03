@@ -3,8 +3,6 @@ const isUserLoggedIn = require("../helpers/isUserLoggedIn");
 export function authCheck(req, res, next, dbQueries) {
   const userID = req.session.user_id; //get users cookie
 
-  console.log("middleware working");
-
   isUserLoggedIn(userID, dbQueries)
     .then((isLoggedIn) => {
       if (!isLoggedIn) {
@@ -13,11 +11,11 @@ export function authCheck(req, res, next, dbQueries) {
         req.isLoggedIn = true;
         req.userID = userID;
       }
-      next();
+      return next();
     })
     .catch((err) => {
       console.log("auth error:", err);
-      res.status(500).json({
+      return res.status(500).json({
         auth: true,
         message: "internal server error",
       });
