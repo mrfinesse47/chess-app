@@ -28,25 +28,28 @@ module.exports = (db) => {
       });
   };
 
+  // id SERIAL PRIMARY KEY NOT NULL,
+  // user_name VARCHAR(255) NOT NULL UNIQUE,
+  // first_name VARCHAR(255) NOT NULL,
+  // last_name VARCHAR(255) NOT NULL,
+  // email VARCHAR(255) NOT NULL UNIQUE,
+  // rating INTEGER NOT NULL,
+  // password VARCHAR(255) NOT NULL
+
   const addUser = function (user) {
     const values = [
-      user.first_name,
-      user.last_name,
-      user.address,
-      user.neighborhood,
-      user.borrower,
-      user.lender,
+      user.userName,
+      user.firstName,
+      user.lastName,
       user.email,
-      user.cash_balance_cents,
-      user.phone,
+      user.rating,
       user.password,
     ];
 
     return db
       .query(
-        `INSERT INTO users (first_name, last_name, address, neighborhood, 
-            borrower, lender, email, cash_balance_cents, phone, password)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        `INSERT INTO users (user_name, first_name, last_name, email,rating, password)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;`,
         values
       )

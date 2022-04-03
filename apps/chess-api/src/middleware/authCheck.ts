@@ -3,7 +3,7 @@ const isUserLoggedIn = require("../helpers/isUserLoggedIn");
 export function authCheck(req, res, next, dbQueries) {
   const userID = req.session.user_id; //get users cookie
 
-  console.log("middleware working user id is:" + req.session.user_id);
+  console.log("middleware working");
 
   isUserLoggedIn(userID, dbQueries)
     .then((isLoggedIn) => {
