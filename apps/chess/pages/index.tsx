@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { User } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
-import { Leaderboard } from "@chess/features";
+import { Leaderboard, Navbar } from "@chess/features";
 const StyledPage = styled.div`
   display: flex;
   justify-content: center;
@@ -12,7 +12,6 @@ const StyledPage = styled.div`
   background: #cecece;
 `;
 
-const Navbar = styled.nav``;
 const Title = styled.h1`
   font-size: 4rem;
 `;
