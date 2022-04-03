@@ -4,6 +4,9 @@
     "chess": "apps/chess",
     "chess-api": "apps/chess-api",
     "chess-e2e": "apps/chess-e2e",
+    "data-access": "libs/data-access",
+    "features": "libs/features",
+    "ui": "libs/ui",
     "utils": "libs/utils"
   }
 }
