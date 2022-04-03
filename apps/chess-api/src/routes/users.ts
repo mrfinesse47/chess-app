@@ -1,6 +1,6 @@
-import { User } from '@chess/utils';
+import { User } from "@chess/utils";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 module.exports = (db) => {
@@ -8,21 +8,21 @@ module.exports = (db) => {
   // POST /api/users/login
   //-----------------------------------------------------------------
 
-  router.post('/login', async (req, res) => {
+  router.post("/login", async (req, res) => {
     try {
       const user = await db.getUserByEmail(req.body.email);
 
       if (!user) {
         return res.json({
           auth: false,
-          message: 'could not log in',
+          message: "could not log in",
         });
       }
       if (req.body.password !== user.password) {
         //check the user password vs the form password
         return res.json({
           auth: false,
-          message: 'User information is incorrect',
+          message: "User information is incorrect",
         });
       }
 
@@ -31,12 +31,12 @@ module.exports = (db) => {
 
       res.json({
         auth: true,
-        message: 'successfully logged in!',
+        message: "successfully logged in!",
       });
     } catch (err) {
       return res.status(500).json({
         auth: false,
-        message: 'Server Error',
+        message: "Server Error",
       });
     }
   });
@@ -45,12 +45,12 @@ module.exports = (db) => {
   // POST /api/users/logout
   //-----------------------------------------------------------------
 
-  router.post('/logout', (req, res) => {
+  router.post("/logout", (req, res) => {
     req.session = null; //deletes user cookies
     res.json({
       auth: false,
-      message: 'Goodbye!',
-      severity: 'success',
+      message: "Goodbye!",
+      severity: "success",
       isShown: true,
     });
   });
@@ -59,12 +59,12 @@ module.exports = (db) => {
   // /api/users/signup
   //-----------------------------------------------------------------
 
-  router.post('/signup', (req, res) => {
+  router.post("/signup", (req, res) => {
     const user = {
       first_name: req.body.firstName,
       last_name: req.body.lastName,
-      address: 'placeholder', //will remove placeholders shortly when reseeded db
-      neighborhood: 'placeholder',
+      address: "placeholder", //will remove placeholders shortly when reseeded db
+      neighborhood: "placeholder",
       borrower: false, //not sent by axios
       lender: false, //not sent by axios
       email: req.body.email,
@@ -78,9 +78,9 @@ module.exports = (db) => {
     if (!(user.first_name && user.last_name && user.email && user.password)) {
       return res.json({
         auth: false,
-        message: 'Please fill in all required fields',
+        message: "Please fill in all required fields",
         isShown: true,
-        severity: 'error',
+        severity: "error",
       });
     }
 
@@ -91,7 +91,7 @@ module.exports = (db) => {
     if (isLoggedIn) {
       return res.json({
         auth: true,
-        message: 'already logged in',
+        message: "already logged in",
       });
     }
 
@@ -102,7 +102,7 @@ module.exports = (db) => {
         if (!result) {
           return res.json({
             auth: false,
-            message: 'Email already in use',
+            message: "Email already in use",
           });
         }
 
@@ -110,14 +110,14 @@ module.exports = (db) => {
 
         res.json({
           auth: true,
-          message: 'succesful registration',
+          message: "succesful registration",
           profile: result,
         });
       })
       .catch((err) => {
         res.status(500).json({
           auth: false,
-          message: 'internal server error',
+          message: "internal server error",
         });
       });
   });
