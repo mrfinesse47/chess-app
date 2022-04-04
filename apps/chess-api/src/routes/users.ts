@@ -61,7 +61,8 @@ module.exports = (db) => {
   //-----------------------------------------------------------------
 
   router.post("/signup", (req, res) => {
-    const user = {
+    const user: User = {
+      id: null, //db assigns the id on creation
       userName: req.body.userName,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -69,8 +70,6 @@ module.exports = (db) => {
       rating: 1600,
       password: req.body.password,
     };
-
-    console.log(user);
 
     //makes sure the sign up form is complete
 
