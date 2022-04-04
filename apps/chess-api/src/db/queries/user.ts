@@ -1,25 +1,28 @@
+import { User } from "@chess/utils";
+import { camelCaseObj } from "../../helpers/camelCaseObj";
+
 module.exports = (db) => {
   // USER QUERIES
-  const getUserByEmail = function (email: String): String | null {
+  const getUserByEmail = function (email: String): User | null {
     return db
       .query(`SELECT * FROM users WHERE email = $1;`, [email])
-      .then((result) => {
+      .then((result: any) => {
         if (result) {
-          return result.rows[0];
+          return camelCaseObj(result.rows[0]);
         } else {
           return null;
         }
       });
   };
 
-  const getUserById = function (id) {
+  const getUserById = function (id: number): User | null {
     return db
       .query(
         `
       SELECT * FROM users WHERE id = $1;`,
         [id]
       )
-      .then((result) => {
+      .then((result: any) => {
         if (result) {
           return result.rows[0];
         } else {
@@ -28,7 +31,7 @@ module.exports = (db) => {
       });
   };
 
-  const addUser = function (user) {
+  const addUser = function (user: User): User {
     const queryParams = [
       user.userName,
       user.firstName,
@@ -45,12 +48,12 @@ module.exports = (db) => {
       RETURNING *;`,
         queryParams
       )
-      .then((result) => {
-        return result.rows[0];
+      .then((result: any) => {
+        return camelCaseObj(result.rows[0]);
       });
   };
 
-  const updateUserInfo = function (id, user) {
+  const updateUserInfo = function (id: number, user: User): User | null {
     const queryParams = [
       id,
       user.userName,
@@ -76,9 +79,9 @@ module.exports = (db) => {
     RETURNING *;`,
         queryParams
       )
-      .then((result) => {
+      .then((result: any) => {
         if (result) {
-          return result.rows[0];
+          return camelCaseObj(result.rows[0]);
         } else {
           return null;
         }

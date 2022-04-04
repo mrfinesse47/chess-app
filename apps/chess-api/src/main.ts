@@ -4,16 +4,14 @@
  */
 
 import * as express from "express";
-import { User } from "@chess/utils";
-
-// const user: User = { name: 'kwvin', phone: 334 };
+// import { User } from "@chess/utils";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // PG database client/connection setup
-const { Pool } = require("pg");
+import { Pool } from "pg";
 const dbParams = require("./db/lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
@@ -24,7 +22,7 @@ const dbUserQueries = require("./db/queries/user")(db);
 
 //configure cookies
 
-const cookieSession = require("cookie-session");
+import cookieSession = require("cookie-session");
 
 app.use(
   cookieSession({
