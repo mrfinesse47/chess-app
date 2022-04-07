@@ -7,3 +7,4 @@ export type User = {
   password: string;
   rating: number;
 };
+export type UserResponse = Omit<User, "password">;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { User } from "@chess/utils";
+import { UserResponse } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
 import { Leaderboard, Navbar } from "@chess/features";
 const StyledPage = styled.div`
@@ -32,14 +32,22 @@ const CTAButtonsGroup = styled.div`
 const StatsSection = styled.section``;
 
 export function Index() {
-  const users: User[] = [
+  const users: UserResponse[] = [
     {
-      name: "Simon",
-      phone: 24242424,
+      userName: "Skidragon",
+      firstName: "Simon",
+      lastName: "Davis",
+      rating: 1000,
+      email: "simon@gmail.com",
+      id: 1,
     },
     {
-      name: "Kevin",
-      phone: 11111111,
+      userName: "MrFinesse",
+      firstName: "Kevin",
+      lastName: "Mason",
+      rating: 2000,
+      email: "kevin@gmail.com",
+      id: 2,
     },
   ];
   return (

@@ -1,4 +1,4 @@
-import { User } from "@chess/utils";
+import { UserResponse } from "@chess/utils";
 import styled from "styled-components";
 import React from "react";
 /* eslint-disable-next-line */
@@ -7,7 +7,7 @@ export interface LeaderboardProps
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  users: User[];
+  users: UserResponse[];
 }
 
 const StyledLeaderboard = styled.div`
@@ -23,7 +23,7 @@ export const Leaderboard = React.forwardRef<HTMLDivElement, LeaderboardProps>(
         <h3>Leaderboard</h3>
         <List>
           {users.map((user) => {
-            return <Item key={user.name}>{user.name}</Item>;
+            return <Item key={user.userName}>{user.userName}</Item>;
           })}
         </List>
       </StyledLeaderboard>
