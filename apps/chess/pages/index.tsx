@@ -60,8 +60,8 @@ export function Index() {
           <LinkButton variant={"primary"} href="/login">
             Login
           </LinkButton>
-          <LinkButton variant={"secondary"} href="/register">
-            Register
+          <LinkButton variant={"secondary"} href="/signup">
+            Signup
           </LinkButton>
         </CTAButtonsGroup>
         <StatsSection>
