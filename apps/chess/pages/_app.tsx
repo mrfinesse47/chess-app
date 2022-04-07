@@ -1,6 +1,8 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import "./styles.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -9,7 +11,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>{`Chess K&S`}</title>
       </Head>
       <main className="app">
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </main>
     </>
   );
