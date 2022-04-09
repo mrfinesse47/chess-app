@@ -12,9 +12,17 @@ export interface TextFieldProps
   errorMessage?: string;
 }
 
-const StyledTextField = styled.div``;
-const Input = styled.input``;
-const Label = styled.label``;
+const StyledTextField = styled.div`
+  display: flex;
+  flex-flow: column;
+  font-size: 1rem;
+`;
+const Label = styled.label`
+  color: white;
+`;
+const Input = styled.input`
+  padding: 1em;
+`;
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
   ({ label, id, hasError, errorMessage, ...props }, ref) => {
