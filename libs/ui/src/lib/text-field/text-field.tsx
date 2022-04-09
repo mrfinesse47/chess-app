@@ -22,6 +22,9 @@ const Label = styled.label`
 `;
 const Input = styled.input`
   padding: 1em;
+  &::placeholder {
+    color: #e1e1e1;
+  }
 `;
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
