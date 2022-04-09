@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { TextField, Button } from "@chess/ui";
+import { REQUIRED_MESSAGE } from "@chess/utils";
 import axios from "axios";
 /* eslint-disable-next-line */
 export interface SignupProps {}
@@ -33,7 +34,6 @@ type FormValues = {
   password: string;
 };
 
-const REQUIRED_MESSAGE = "Required";
 export function Signup(props: SignupProps) {
   const {
     register,
