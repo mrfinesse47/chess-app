@@ -17,6 +17,7 @@
     "@nrwl/next": "13.9.4",
     "@types/cookie-session": "^2.0.44",
     "@types/express-session": "^1.17.4",
+    "axios": "^0.26.1",
     "chalk": "^5.0.1",
     "change-case": "^4.1.2",
     "cookie-session": "^2.0.0",
