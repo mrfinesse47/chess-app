@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import { TextField, Button } from "@chess/ui";
 import { REQUIRED_MESSAGE } from "@chess/utils";
 import axios from "axios";
+import { useRouter } from "next/router";
 /* eslint-disable-next-line */
 export interface SignupProps {}
 
@@ -33,13 +34,20 @@ type FormValues = {
 };
 
 export function Signup(props: SignupProps) {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>();
   const signup = useMutation<unknown, unknown, FormValues>(
-    async (data) => await axios.post("/api/users/signup", data)
+    async (data) =>
+      await axios({
+        method: "POST",
+        data,
+        baseURL: "http://localhost:8001",
+        url: "/api/users/signup",
+      })
   );
   return (
     <StyledSignup>
@@ -49,6 +57,7 @@ export function Signup(props: SignupProps) {
           onSubmit={handleSubmit(async (data) => {
             try {
               await signup.mutateAsync(data);
+              router.push("/");
             } catch (err) {
               console.log(err);
             }

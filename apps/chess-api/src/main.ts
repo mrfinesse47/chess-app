@@ -5,10 +5,12 @@
 
 import * as express from "express";
 // import { User } from "@chess/utils";
+const cors = require("cors");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 // PG database client/connection setup
 import { Pool } from "pg";
