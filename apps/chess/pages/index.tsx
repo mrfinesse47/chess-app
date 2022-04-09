@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { UserResponse } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
-import { Leaderboard, Navbar } from "@chess/features";
+import { Leaderboard } from "@chess/features";
 const StyledPage = styled.div`
   display: flex;
   justify-content: center;
@@ -9,7 +9,6 @@ const StyledPage = styled.div`
   width: 100vw;
   height: 100vh;
   font-size: 1.5rem;
-  background: #cecece;
 `;
 
 const Title = styled.h1`
@@ -52,7 +51,6 @@ export function Index() {
   ];
   return (
     <StyledPage>
-      <Navbar />
       <Hero>
         <Title>Chess</Title>
         <SubTitle>{`K&S Edition`}</SubTitle>
