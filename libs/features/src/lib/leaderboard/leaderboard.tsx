@@ -11,8 +11,9 @@ export interface LeaderboardProps
 }
 
 const StyledLeaderboard = styled.div`
-  background: yellow;
+  background: #fbd7ac;
   padding: 1rem;
+  color: black;
 `;
 const List = styled.ul``;
 const Item = styled.li``;
