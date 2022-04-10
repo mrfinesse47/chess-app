@@ -17,6 +17,14 @@ export type SignupResponse = {
   };
 };
 
+export type SigninResponse = {
+  data: {
+    auth: boolean;
+    message: string;
+    profile: UserResponse;
+  };
+};
+
 export type ErrorResponse = {
   auth: boolean;
   message: string;
