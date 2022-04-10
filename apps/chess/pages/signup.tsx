@@ -25,6 +25,9 @@ const SignupForm = styled.form`
 const SignupButton = styled(Button)`
   width: 100%;
 `;
+const ErrorText = styled.p`
+  color: red;
+`;
 type FormValues = {
   firstName: string;
   lastName: string;
@@ -109,6 +112,9 @@ export function Signup(props: SignupProps) {
             {...register("password", { required: REQUIRED_MESSAGE })}
           />
           <SignupButton type="submit">Signup</SignupButton>
+          {signup.isError ? (
+            <ErrorText>{signup.error.message}</ErrorText>
+          ) : null}
         </SignupForm>
       </main>
     </StyledSignup>
