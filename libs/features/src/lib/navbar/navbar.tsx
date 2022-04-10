@@ -3,7 +3,7 @@ import styled from "styled-components";
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 
-const StyledNavbar = styled.div`
+const StyledNavbar = styled.nav`
   position: fixed;
   top: 0;
   right: 0;

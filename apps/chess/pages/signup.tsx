@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { TextField, Button } from "@chess/ui";
-import { REQUIRED_MESSAGE } from "@chess/utils";
+import { REQUIRED_MESSAGE, SignupResponse, ErrorResponse } from "@chess/utils";
 import axios from "axios";
 import { useRouter } from "next/router";
 /* eslint-disable-next-line */
@@ -25,6 +25,9 @@ const SignupForm = styled.form`
 const SignupButton = styled(Button)`
   width: 100%;
 `;
+const ErrorText = styled.p`
+  color: red;
+`;
 type FormValues = {
   firstName: string;
   lastName: string;
@@ -40,7 +43,7 @@ export function Signup(props: SignupProps) {
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>();
-  const signup = useMutation<unknown, unknown, FormValues>(
+  const signup = useMutation<SignupResponse, ErrorResponse, FormValues>(
     async (data) =>
       await axios({
         method: "POST",
@@ -56,7 +59,11 @@ export function Signup(props: SignupProps) {
         <SignupForm
           onSubmit={handleSubmit(async (data) => {
             try {
-              await signup.mutateAsync(data);
+              const response = await signup.mutateAsync(data);
+              localStorage.setItem(
+                "token",
+                JSON.stringify(response.data.profile)
+              );
               router.push("/");
             } catch (err) {
               console.log(err);
@@ -105,6 +112,9 @@ export function Signup(props: SignupProps) {
             {...register("password", { required: REQUIRED_MESSAGE })}
           />
           <SignupButton type="submit">Signup</SignupButton>
+          {signup.isError ? (
+            <ErrorText>{signup.error.message}</ErrorText>
+          ) : null}
         </SignupForm>
       </main>
     </StyledSignup>
