@@ -5,20 +5,20 @@ import { UserResponse } from "@chess/utils";
 
 const UserSessionContext = React.createContext<
   | {
-      user: ReturnType<typeof useLocalStorage>["0"];
-      setUser: (user: UserResponse) => ReturnType<typeof useLocalStorage>["1"];
+      user: ReturnType<typeof useLocalStorage>["0"] | Record<string, unknown>;
+      setUser: ReturnType<typeof useLocalStorage>["1"];
       hasUser: boolean;
       logout: () => void;
     }
-  | Record<string, unknown>
->({});
+  | undefined
+>(undefined);
 interface UserSessionProviderProps {
   children: React.ReactNode;
 }
 export const useSession = () => {
   const context = useContext(UserSessionContext);
   if (!context) {
-    throw new Error("useSession must be used within UserSessionContext");
+    throw new Error("useSession must be wapped in a <UserSessionContext />");
   }
   return context;
 };
@@ -33,15 +33,14 @@ export function UserSessionProvider(props: UserSessionProviderProps) {
     localStorage.removeItem("user");
     router.push("/");
   };
+  const value: any = {
+    user,
+    hasUser: Boolean(user?.id),
+    setUser,
+    logout,
+  };
   return (
-    <UserSessionContext.Provider
-      value={{
-        user,
-        hasUser: Boolean(user?.id),
-        setUser,
-        logout,
-      }}
-    >
+    <UserSessionContext.Provider value={value}>
       {props.children}
     </UserSessionContext.Provider>
   );
