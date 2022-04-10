@@ -2,7 +2,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import "./styles.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { GlobalStyles, Navbar } from "@chess/features";
+import { GlobalStyles, Navbar, UserSessionProvider } from "@chess/features";
 const queryClient = new QueryClient();
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -15,7 +15,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Navbar />
       <main className="app">
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <UserSessionProvider>
+            <Component {...pageProps} />
+          </UserSessionProvider>
         </QueryClientProvider>
       </main>
     </>
