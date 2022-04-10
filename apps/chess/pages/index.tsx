@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { UserResponse } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
-import { Leaderboard } from "@chess/features";
+import { Leaderboard, useSession } from "@chess/features";
 const StyledPage = styled.div`
   display: flex;
   justify-content: center;
@@ -31,6 +31,7 @@ const CTAButtonsGroup = styled.div`
 const StatsSection = styled.section``;
 
 export function Index() {
+  const { hasUser } = useSession();
   const users: UserResponse[] = [
     {
       userName: "Skidragon",
@@ -54,14 +55,20 @@ export function Index() {
       <Hero>
         <Title>Chess</Title>
         <SubTitle>{`K&S Edition`}</SubTitle>
-        <CTAButtonsGroup>
-          <LinkButton variant={"primary"} href="/login">
-            Login
+        {hasUser ? (
+          <LinkButton variant="primary" href="/lobby">
+            Available
           </LinkButton>
-          <LinkButton variant={"secondary"} href="/signup">
-            Signup
-          </LinkButton>
-        </CTAButtonsGroup>
+        ) : (
+          <CTAButtonsGroup>
+            <LinkButton variant={"primary"} href="/login">
+              Login
+            </LinkButton>
+            <LinkButton variant={"secondary"} href="/signup">
+              Signup
+            </LinkButton>
+          </CTAButtonsGroup>
+        )}
         <StatsSection>
           <Leaderboard users={users} />
         </StatsSection>
