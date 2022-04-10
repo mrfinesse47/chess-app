@@ -18,7 +18,7 @@ interface UserSessionProviderProps {
 export const useSession = () => {
   const context = useContext(UserSessionContext);
   if (!context) {
-    throw new Error("useSession must be wapped in a <UserSessionContext />");
+    throw new Error("useSession must be wapped in a <UserSessionProvider />");
   }
   return context;
 };
