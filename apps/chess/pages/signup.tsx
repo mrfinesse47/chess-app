@@ -5,6 +5,7 @@ import { TextField, Button } from "@chess/ui";
 import { REQUIRED_MESSAGE, SignupResponse, ErrorResponse } from "@chess/utils";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSession } from "@chess/features";
 /* eslint-disable-next-line */
 export interface SignupProps {}
 
@@ -38,6 +39,7 @@ type FormValues = {
 
 export function Signup(props: SignupProps) {
   const router = useRouter();
+  const { setUser } = useSession();
   const {
     register,
     formState: { errors },
@@ -60,10 +62,7 @@ export function Signup(props: SignupProps) {
           onSubmit={handleSubmit(async (data) => {
             try {
               const response = await signup.mutateAsync(data);
-              localStorage.setItem(
-                "token",
-                JSON.stringify(response.data.profile)
-              );
+              setUser(response.data.profile);
               router.push("/");
             } catch (err) {
               console.log(err);
