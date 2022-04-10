@@ -1,14 +1,12 @@
-import React from "react";
 import { render } from "@testing-library/react";
 
-import Index from "../pages/index";
-import { UserSessionProvider } from "@chess/features";
+import UserSessionProvider from "./user-session-provider";
 
-describe("Index", () => {
+describe("UserSessionProvider", () => {
   it("should render successfully", () => {
     const { baseElement } = render(
       <UserSessionProvider>
-        <Index />
+        <div>test</div>
       </UserSessionProvider>
     );
     expect(baseElement).toBeTruthy();
