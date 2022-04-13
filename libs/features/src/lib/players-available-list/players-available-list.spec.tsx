@@ -4,7 +4,7 @@ import PlayersAvailableList from "./players-available-list";
 
 describe("PlayersAvailableList", () => {
   it("should render successfully", () => {
-    const { baseElement } = render(<PlayersAvailableList />);
+    const { baseElement } = render(<PlayersAvailableList users={[]} />);
     expect(baseElement).toBeTruthy();
   });
 });
