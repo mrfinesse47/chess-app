@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { UserResponse } from "@chess/utils";
+import { users } from "@chess/utils";
 import { LinkButton } from "@chess/ui";
 import { Leaderboard, useSession } from "@chess/features";
 const StyledPage = styled.div`
@@ -32,24 +32,7 @@ const StatsSection = styled.section``;
 
 export function Index() {
   const { hasUser } = useSession();
-  const users: UserResponse[] = [
-    {
-      userName: "Skidragon",
-      firstName: "Simon",
-      lastName: "Davis",
-      rating: 1000,
-      email: "simon@gmail.com",
-      id: 1,
-    },
-    {
-      userName: "MrFinesse",
-      firstName: "Kevin",
-      lastName: "Mason",
-      rating: 2000,
-      email: "kevin@gmail.com",
-      id: 2,
-    },
-  ];
+
   return (
     <StyledPage>
       <Hero>
