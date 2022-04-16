@@ -30,3 +30,7 @@ export type ErrorResponse = {
   message: string;
   err: Record<string, unknown>;
 };
+
+export type PieceType = "r" | "n" | "b" | "q" | "k" | "p";
+
+export type PieceColor = "b" | "w";
