@@ -4,6 +4,9 @@ import { Chess } from "chess.js";
 export interface GameProps {}
 
 const StyledGame = styled.div``;
+const Board = styled.div`
+  max-width: 80ch;
+`;
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -34,35 +37,37 @@ const getPieceColor = (color: "b" | "w") => {
 export function Game(props: GameProps) {
   return (
     <StyledGame>
-      {chess.board().map((row, rowIndex) => {
-        return (
-          <Row key={rowIndex}>
-            {row.map((cell, cellIndex) => {
-              if (cell) {
+      <Board>
+        {chess.board().map((row, rowIndex) => {
+          return (
+            <Row key={rowIndex}>
+              {row.map((cell, cellIndex) => {
+                if (cell) {
+                  return (
+                    <Cell
+                      key={cellIndex}
+                      style={{
+                        color: getPieceColor(cell.color),
+                        background: getCellBackground(rowIndex, cellIndex),
+                      }}
+                    >
+                      {cell.type}
+                    </Cell>
+                  );
+                }
                 return (
-                  <Cell
+                  <EmptyCell
                     key={cellIndex}
                     style={{
-                      color: getPieceColor(cell.color),
                       background: getCellBackground(rowIndex, cellIndex),
                     }}
-                  >
-                    {cell.type}
-                  </Cell>
+                  />
                 );
-              }
-              return (
-                <EmptyCell
-                  key={cellIndex}
-                  style={{
-                    background: getCellBackground(rowIndex, cellIndex),
-                  }}
-                />
-              );
-            })}
-          </Row>
-        );
-      })}
+              })}
+            </Row>
+          );
+        })}
+      </Board>
     </StyledGame>
   );
 }
