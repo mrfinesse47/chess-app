@@ -30,12 +30,33 @@ const Row = styled.div`
     right: -4ch;
     transform: translateY(-50%) rotate(180deg);
   }
+  &:first-child > * {
+    position: relative;
+    &::before {
+      content: "A";
+      color: white;
+      font-size: 1rem;
+      position: absolute;
+      top: -4ch;
+    }
+  }
+  &:last-child > * {
+    position: relative;
+    &::after {
+      font-size: 1rem;
+      content: "A";
+      position: absolute;
+      bottom: -4ch;
+    }
+  }
 `;
 const Cell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1;
+`;
+const Piece = styled.div`
   font-size: 3rem;
 `;
 const EmptyCell = styled.div`
@@ -93,7 +114,7 @@ export function Game(props: GameProps) {
                         background: getCellBackground(rowIndex, cellIndex),
                       }}
                     >
-                      {getPiece(cell.type)}
+                      <Piece>{getPiece(cell.type)}</Piece>
                     </Cell>
                   );
                 }
