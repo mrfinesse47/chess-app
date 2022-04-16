@@ -8,11 +8,28 @@ const StyledGame = styled.div``;
 const Board = styled.div`
   max-width: 80ch;
   margin: 0 auto;
+  background: #323232;
+  padding: 8ch;
 `;
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   width: 100%;
+  position: relative;
+  &::before {
+    content: "1";
+    position: absolute;
+    top: 50%;
+    left: -4ch;
+    transform: translateY(-50%);
+  }
+  &::after {
+    content: "1";
+    position: absolute;
+    top: 50%;
+    right: -4ch;
+    transform: translateY(-50%) rotate(180deg);
+  }
 `;
 const Cell = styled.div`
   display: flex;
