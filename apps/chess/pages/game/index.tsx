@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Chess } from "chess.js";
+import { PieceType, PieceColor } from "@chess/utils";
 /* eslint-disable-next-line */
 export interface GameProps {}
 
 const StyledGame = styled.div``;
 const Board = styled.div`
   max-width: 80ch;
+  margin: 0 auto;
 `;
 const Row = styled.div`
   display: grid;
@@ -17,6 +19,7 @@ const Cell = styled.div`
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1;
+  font-size: 3rem;
 `;
 const EmptyCell = styled.div`
   aspect-ratio: 1 / 1;
@@ -25,15 +28,37 @@ const chess = new Chess();
 
 const getCellBackground = (rowIndex: number, cellIndex: number) => {
   if (rowIndex % 2 === 0) {
-    return cellIndex % 2 === 0 ? "beige" : "brown";
+    return cellIndex % 2 === 0 ? "darksalmon" : "brown";
   }
-  return cellIndex % 2 === 0 ? "brown" : "beige";
+  return cellIndex % 2 === 0 ? "brown" : "darksalmon";
 };
 
-const getPieceColor = (color: "b" | "w") => {
+const getPieceColor = (color: PieceColor) => {
   return color === "b" ? "black" : "white";
 };
-
+const getPiece = (type: PieceType) => {
+  let piece: string;
+  switch (type) {
+    case "r":
+      piece = "♜";
+      break;
+    case "n":
+      piece = "♞";
+      break;
+    case "b":
+      piece = "♝";
+      break;
+    case "k":
+      piece = "♚";
+      break;
+    case "q":
+      piece = "♛";
+      break;
+    case "p":
+      piece = "♟";
+  }
+  return piece;
+};
 export function Game(props: GameProps) {
   return (
     <StyledGame>
@@ -51,7 +76,7 @@ export function Game(props: GameProps) {
                         background: getCellBackground(rowIndex, cellIndex),
                       }}
                     >
-                      {cell.type}
+                      {getPiece(cell.type)}
                     </Cell>
                   );
                 }
