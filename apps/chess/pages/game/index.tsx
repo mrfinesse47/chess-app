@@ -17,37 +17,20 @@ const Row = styled.div`
   width: 100%;
   position: relative;
   &::before {
-    content: "1";
+    counter-reset: variable var(--number);
+    content: counter(variable);
     position: absolute;
     top: 50%;
     left: -4ch;
     transform: translateY(-50%);
   }
   &::after {
-    content: "1";
+    counter-reset: variable var(--number);
+    content: counter(variable);
     position: absolute;
     top: 50%;
     right: -4ch;
     transform: translateY(-50%) rotate(180deg);
-  }
-  &:first-child > * {
-    position: relative;
-    &::before {
-      content: "A";
-      color: white;
-      font-size: 1rem;
-      position: absolute;
-      top: -4ch;
-    }
-  }
-  &:last-child > * {
-    position: relative;
-    &::after {
-      font-size: 1rem;
-      content: "A";
-      position: absolute;
-      bottom: -4ch;
-    }
   }
 `;
 const Cell = styled.div`
@@ -55,6 +38,20 @@ const Cell = styled.div`
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1;
+  position: relative;
+  &::before {
+    content: attr(data-top-letter);
+    position: absolute;
+    top: -4ch;
+    color: white;
+    transform: rotate(180deg);
+  }
+  &::after {
+    content: attr(data-bottom-letter);
+    position: absolute;
+    bottom: -4ch;
+    color: white;
+  }
 `;
 const Piece = styled.div`
   font-size: 3rem;
@@ -102,10 +99,14 @@ export function Game(props: GameProps) {
     <StyledGame>
       <Board>
         {chess.board().map((row, rowIndex) => {
+          const rowStyle = {
+            "--number": rowIndex + 1,
+          } as React.CSSProperties;
           return (
-            <Row key={rowIndex}>
+            <Row style={rowStyle} key={rowIndex}>
               {row.map((cell, cellIndex) => {
                 if (cell) {
+                  const [letter] = cell.square;
                   return (
                     <Cell
                       key={cellIndex}
@@ -113,6 +114,12 @@ export function Game(props: GameProps) {
                         color: getPieceColor(cell.color),
                         background: getCellBackground(rowIndex, cellIndex),
                       }}
+                      data-top-letter={
+                        rowIndex === 0 ? letter.toUpperCase() : ""
+                      }
+                      data-bottom-letter={
+                        rowIndex === 7 ? letter.toUpperCase() : ""
+                      }
                     >
                       <Piece>{getPiece(cell.type)}</Piece>
                     </Cell>
