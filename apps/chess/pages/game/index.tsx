@@ -8,18 +8,54 @@ const StyledGame = styled.div``;
 const Board = styled.div`
   max-width: 80ch;
   margin: 0 auto;
+  background: #323232;
+  padding: 8ch;
 `;
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   width: 100%;
+  position: relative;
+  &::before {
+    counter-reset: variable var(--number);
+    content: counter(variable);
+    position: absolute;
+    top: 50%;
+    left: -4ch;
+    transform: translateY(-50%);
+  }
+  &::after {
+    counter-reset: variable var(--number);
+    content: counter(variable);
+    position: absolute;
+    top: 50%;
+    right: -4ch;
+    transform: translateY(-50%) rotate(180deg);
+  }
 `;
 const Cell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1;
-  font-size: 3rem;
+  position: relative;
+  &::before {
+    content: attr(data-top-letter);
+    position: absolute;
+    top: -4ch;
+    color: white;
+    transform: rotate(180deg);
+  }
+  &::after {
+    content: attr(data-bottom-letter);
+    position: absolute;
+    bottom: -4ch;
+    color: white;
+  }
+`;
+const Piece = styled.div`
+  font-size: 2.5rem;
+  position: absolute;
 `;
 const EmptyCell = styled.div`
   aspect-ratio: 1 / 1;
@@ -64,10 +100,14 @@ export function Game(props: GameProps) {
     <StyledGame>
       <Board>
         {chess.board().map((row, rowIndex) => {
+          const rowStyle = {
+            "--number": rowIndex + 1,
+          } as React.CSSProperties;
           return (
-            <Row key={rowIndex}>
+            <Row style={rowStyle} key={rowIndex}>
               {row.map((cell, cellIndex) => {
                 if (cell) {
+                  const [letter] = cell.square;
                   return (
                     <Cell
                       key={cellIndex}
@@ -75,8 +115,14 @@ export function Game(props: GameProps) {
                         color: getPieceColor(cell.color),
                         background: getCellBackground(rowIndex, cellIndex),
                       }}
+                      data-top-letter={
+                        rowIndex === 0 ? letter.toUpperCase() : ""
+                      }
+                      data-bottom-letter={
+                        rowIndex === 7 ? letter.toUpperCase() : ""
+                      }
                     >
-                      {getPiece(cell.type)}
+                      <Piece>{getPiece(cell.type)}</Piece>
                     </Cell>
                   );
                 }
