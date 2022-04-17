@@ -60,7 +60,6 @@ const Piece = styled.div`
 const EmptyCell = styled.div`
   aspect-ratio: 1 / 1;
 `;
-const chess = new Chess();
 
 const getCellBackground = (rowIndex: number, cellIndex: number) => {
   if (rowIndex % 2 === 0) {
@@ -95,13 +94,15 @@ const getPiece = (type: PieceType) => {
   }
   return piece;
 };
+const chess = new Chess();
 export function Game(props: GameProps) {
+  const board = chess.board();
   return (
     <StyledGame>
       <Board>
-        {chess.board().map((row, rowIndex) => {
+        {board.map((row, rowIndex) => {
           const rowStyle = {
-            "--number": rowIndex + 1,
+            "--number": board.length - rowIndex,
           } as React.CSSProperties;
           return (
             <Row style={rowStyle} key={rowIndex}>
