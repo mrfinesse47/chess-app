@@ -60,7 +60,7 @@ export function Signin(props: SigninProps) {
             try {
               const response = await signin.mutateAsync(data);
               setUser(response.data.profile);
-              console.log("success");
+              console.log(response);
               router.push("/");
             } catch (err) {
               console.log(err);
