@@ -54,7 +54,8 @@ const Cell = styled.div`
   }
 `;
 const Piece = styled.div`
-  font-size: 3rem;
+  font-size: 2.5rem;
+  position: absolute;
 `;
 const EmptyCell = styled.div`
   aspect-ratio: 1 / 1;
