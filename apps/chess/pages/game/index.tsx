@@ -39,6 +39,7 @@ const Cell = styled.div`
   align-items: center;
   aspect-ratio: 1 / 1;
   position: relative;
+  cursor: pointer;
   &::before {
     content: attr(data-top-letter);
     position: absolute;
@@ -56,9 +57,6 @@ const Cell = styled.div`
 const Piece = styled.div`
   font-size: 2.5rem;
   position: absolute;
-`;
-const EmptyCell = styled.div`
-  aspect-ratio: 1 / 1;
 `;
 
 const getCellBackground = (rowIndex: number, cellIndex: number) => {
@@ -94,9 +92,17 @@ const getPiece = (type: PieceType) => {
   }
   return piece;
 };
+const isActiveCell = (cell, activeCell) => {
+  console.log(activeCell);
+  const [letter, number] = cell.square;
+  const [activeLetter, activeNumber] = activeCell.square;
+  return letter === activeLetter && number === activeNumber;
+};
 const chess = new Chess();
+const CHAR_CODE_A = 97;
 export function Game(props: GameProps) {
   const board = chess.board();
+
   return (
     <StyledGame>
       <Board>
@@ -107,33 +113,30 @@ export function Game(props: GameProps) {
           return (
             <Row style={rowStyle} key={rowIndex}>
               {row.map((cell, cellIndex) => {
-                if (cell) {
-                  const [letter] = cell.square;
-                  return (
-                    <Cell
-                      key={cellIndex}
-                      style={{
-                        color: getPieceColor(cell.color),
-                        background: getCellBackground(rowIndex, cellIndex),
-                      }}
-                      data-top-letter={
-                        rowIndex === 0 ? letter.toUpperCase() : ""
-                      }
-                      data-bottom-letter={
-                        rowIndex === 7 ? letter.toUpperCase() : ""
-                      }
-                    >
-                      <Piece>{getPiece(cell.type)}</Piece>
-                    </Cell>
-                  );
-                }
+                const emptyCell = {
+                  color: "white",
+                  background: getCellBackground(rowIndex, cellIndex),
+                  square: [
+                    String.fromCharCode(CHAR_CODE_A + cellIndex),
+                    board.length - rowIndex,
+                  ],
+                };
+                const cellValue = cell ?? emptyCell;
+                const [letter] = cellValue.square;
                 return (
-                  <EmptyCell
+                  <Cell
                     key={cellIndex}
                     style={{
+                      color: getPieceColor(cellValue.color),
                       background: getCellBackground(rowIndex, cellIndex),
                     }}
-                  />
+                    data-top-letter={rowIndex === 0 ? letter.toUpperCase() : ""}
+                    data-bottom-letter={
+                      rowIndex === 7 ? letter.toUpperCase() : ""
+                    }
+                  >
+                    <Piece>{getPiece(cellValue.type)}</Piece>
+                  </Cell>
                 );
               })}
             </Row>
