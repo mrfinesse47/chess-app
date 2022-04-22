@@ -7,6 +7,7 @@
     "data-access": "libs/data-access",
     "features": "libs/features",
     "machines": "libs/machines",
+    "models": "libs/models",
     "ui": "libs/ui",
     "utils": "libs/utils"
   }
