@@ -17,6 +17,7 @@
     "paths": {
       "@chess/data-access": ["libs/data-access/src/index.ts"],
       "@chess/features": ["libs/features/src/index.ts"],
+      "@chess/machines": ["libs/machines/src/index.ts"],
       "@chess/ui": ["libs/ui/src/index.ts"],
       "@chess/utils": ["libs/utils/src/index.ts"]
     }

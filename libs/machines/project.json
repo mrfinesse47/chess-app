@@ -1,0 +1,32 @@
+{
+  "root": "libs/machines",
+  "sourceRoot": "libs/machines/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/machines",
+        "main": "libs/machines/src/index.ts",
+        "tsConfig": "libs/machines/tsconfig.lib.json",
+        "assets": ["libs/machines/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/machines/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/machines"],
+      "options": {
+        "jestConfig": "libs/machines/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

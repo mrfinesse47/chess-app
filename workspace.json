@@ -6,6 +6,7 @@
     "chess-e2e": "apps/chess-e2e",
     "data-access": "libs/data-access",
     "features": "libs/features",
+    "machines": "libs/machines",
     "ui": "libs/ui",
     "utils": "libs/utils"
   }
