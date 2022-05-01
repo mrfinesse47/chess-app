@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { Chess } from "chess.js";
-import { PieceType, PieceColor } from "@chess/utils";
 import { gameMachine } from "@chess/machines";
 import { useMachine } from "@xstate/react";
 import { useEffect } from "react";
+import { Piece, PieceType } from "chess.js";
 /* eslint-disable-next-line */
 export interface GameProps {}
 
@@ -69,7 +68,7 @@ const getCellBackground = (rowIndex: number, cellIndex: number) => {
   return cellIndex % 2 === 0 ? "brown" : "darksalmon";
 };
 
-const getPieceColor = (color: PieceColor) => {
+const getPieceColor = (color: Piece["color"]) => {
   return color === "b" ? "black" : "white";
 };
 const getPiece = (type: PieceType) => {
