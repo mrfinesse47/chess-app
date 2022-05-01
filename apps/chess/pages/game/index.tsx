@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Chess } from "chess.js";
 import { PieceType, PieceColor } from "@chess/utils";
+import { gameMachine } from "@chess/machines";
+import { useMachine } from "@xstate/react";
+import { useEffect } from "react";
 /* eslint-disable-next-line */
 export interface GameProps {}
 
@@ -93,7 +96,6 @@ const getPiece = (type: PieceType) => {
   return piece;
 };
 const isActiveCell = (cell, activeCell) => {
-  console.log(activeCell);
   const [letter, number] = cell.square;
   const [activeLetter, activeNumber] = activeCell.square;
   return letter === activeLetter && number === activeNumber;
@@ -102,7 +104,13 @@ const chess = new Chess();
 const CHAR_CODE_A = 97;
 export function Game(props: GameProps) {
   const board = chess.board();
-
+  const [state, send] = useMachine(() => gameMachine);
+  const { context } = state;
+  useEffect(() => {
+    send({
+      type: "INITIALIZE_GAME",
+    });
+  }, [send]);
   return (
     <StyledGame>
       <Board>

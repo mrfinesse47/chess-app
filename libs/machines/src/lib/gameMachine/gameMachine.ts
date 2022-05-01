@@ -1,13 +1,12 @@
-import { createMachine } from "xstate";
-
-export const gameMachine = createMachine({
+import { gameModel } from "@chess/models";
+export const gameMachine = gameModel.createMachine({
   id: "Chess Game",
   initial: "initialize game",
   states: {
     "initialize game": {
       description: "Start Timer, Setup pieces and grid",
       on: {
-        GAME_INITIALIZED: {
+        INITIALIZE_GAME: {
           description: "Enable Players to make moves.",
           target: "choose player",
         },
@@ -16,18 +15,18 @@ export const gameMachine = createMachine({
     "choose player": {
       description: "Start Player Timer",
       on: {
-        PLAYER_CHOSEN: {
+        CHOOSE_PLAYER: {
           description: "Player's timer actor is active",
-          target: "player move",
+          target: "player phase",
         },
       },
     },
-    "player move": {
+    "player phase": {
       initial: "idle",
       states: {
         idle: {
           on: {
-            SELECT_PIECE: {
+            PLAYER_SELECTS_PIECE: {
               target: "player selected piece",
             },
           },
@@ -36,17 +35,17 @@ export const gameMachine = createMachine({
           description:
             "Piece is highlighted and possible movements indicators placed.",
           on: {
-            CANCEL_MOVE: {
+            PLAYER_CANCEL_MOVE: {
               target: "idle",
             },
-            MOVES_PIECE: {
-              target: "#Chess Game.Check Move",
+            PLAYER_MOVES_PIECE: {
+              target: "#Chess Game.check move",
             },
           },
         },
       },
     },
-    "Check Move": {
+    "check move": {
       description: "Check with server if its a valid move",
       on: {
         VALID_MOVE: {
@@ -54,7 +53,7 @@ export const gameMachine = createMachine({
           actions: "checkMove",
         },
         INVALID_MOVE: {
-          target: "player move",
+          target: "player phase",
         },
       },
     },
