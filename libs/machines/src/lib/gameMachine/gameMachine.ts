@@ -1,12 +1,26 @@
 import { gameModel } from "@chess/models";
+import { Chess } from "chess.js";
+const chess = new Chess();
+
 export const gameMachine = gameModel.createMachine({
   id: "Chess Game",
   initial: "initialize game",
+  context: {
+    board: [],
+    white: {},
+    black: {},
+    activePlayer: {},
+    activeCell: {},
+    moves: 0,
+  },
   states: {
     "initialize game": {
       description: "Start Timer, Setup pieces and grid",
       on: {
         INITIALIZE_GAME: {
+          actions: gameModel.assign({
+            board: chess.board(),
+          }),
           description: "Enable Players to make moves.",
           target: "choose player",
         },
@@ -14,11 +28,14 @@ export const gameMachine = gameModel.createMachine({
     },
     "choose player": {
       description: "Start Player Timer",
-      on: {
-        CHOOSE_PLAYER: {
-          description: "Player's timer actor is active",
-          target: "player phase",
-        },
+      always: {
+        actions: gameModel.assign({
+          activePlayer: (ctx) => {
+            return ctx.white;
+          },
+        }),
+        description: "Player's timer actor is active",
+        target: "player phase",
       },
     },
     "player phase": {
@@ -27,6 +44,11 @@ export const gameMachine = gameModel.createMachine({
         idle: {
           on: {
             PLAYER_SELECTS_PIECE: {
+              actions: gameModel.assign({
+                activeCell: (_, event) => {
+                  return event.cell;
+                },
+              }),
               target: "player selected piece",
             },
           },

@@ -1,11 +1,12 @@
 import { createModel } from "xstate/lib/model";
-
+import { ChessInstance } from "chess.js";
 export const gameModel = createModel(
   {
-    board: [],
-    player1: {},
-    player2: {},
+    board: [] as ReturnType<ChessInstance["board"]>,
+    white: {},
+    black: {},
     activePlayer: {},
+    activeCell: {} as Record<string, unknown>,
     moves: 0,
   },
   {
@@ -15,7 +16,9 @@ export const gameModel = createModel(
       CONTINUE: () => ({}),
       DRAW: () => ({}),
       WIN: () => ({}),
-      PLAYER_SELECTS_PIECE: () => ({}),
+      PLAYER_SELECTS_PIECE: ({ cell }: { cell: Record<string, unknown> }) => ({
+        cell,
+      }),
       PLAYER_MOVES_PIECE: () => ({}),
       PLAYER_CANCEL_MOVE: () => ({}),
       VALID_MOVE: () => ({}),
