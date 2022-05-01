@@ -55,6 +55,7 @@
     "@nrwl/workspace": "13.9.4",
     "@testing-library/react": "12.1.4",
     "@testing-library/react-hooks": "7.0.2",
+    "@types/chess.js": "^0.11.2",
     "@types/express": "4.17.13",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
